@@ -2,29 +2,27 @@
 
 namespace Task2
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class Order
     {
-        private OrderItem[] _orderItems;
+        private readonly List<OrderItem> _orderItems;
 
-        public OrderItem[] OrderItems
+        public List<OrderItem> OrderItems
         {
-            get
-            {
-                return _orderItems;
-            }
+            get => this._orderItems;
+
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
-                this._orderItems = value;
+                this._orderItems.Clear();
+                this._orderItems.AddRange(value);
             }
         }
 
-        public Order(OrderItem[] orderItems)
+        public Order(List<OrderItem> orderItems)
         {
+            this._orderItems = new List<OrderItem>(orderItems.Count);
             this.OrderItems = orderItems;
         }
     }
