@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task5
 {
+    using System;
+    using System.Collections.ObjectModel;
+
     public class Program
     {
         public static void Main()
@@ -13,7 +16,7 @@ namespace Task5
             var order = new Order();
 
             order.AddRange(
-                new[]
+                new OrderItem[]
                     {
                         new OrderItem(110072674, "Widget", 400, 45.17), new OrderItem(110072675, "Sprocket", 27, 5.3),
                         new OrderItem(101030411, "Motor", 10, 237.5), new OrderItem(110072684, "Gear", 175, 5.17)
@@ -21,16 +24,7 @@ namespace Task5
 
             Display("Order #1", order);
 
-            OrderItem orderItem = null;
-
-            foreach (var item in order.OrderItems)
-            {
-                if (item.PartNumber == 111033401)
-                {
-                    orderItem = item;
-                    break;
-                }
-            }
+            OrderItem orderItem = order.FindByPartNumber(111033401);
 
             if (orderItem == null)
             {
@@ -38,32 +32,28 @@ namespace Task5
             }
 
             order.AddRange(
-                new[] { new OrderItem(111033401, "Nut", 10, .5), new OrderItem(127700026, "Crank", 27, 5.98) });
+                new OrderItem[]
+                    {
+                        new OrderItem(111033401, "Nut", 10, .5), new OrderItem(127700026, "Crank", 27, 5.98)
+                    });
 
             Display("Order #2", order);
 
-            foreach (var item in order.OrderItems)
-            {
-                if (item.PartNumber == 127700026)
-                {
-                    orderItem = item;
-                    break;
-                }
-            }
-
+            orderItem = order.FindByDescription("Crank");
             if (orderItem != null)
             {
-                Console.WriteLine("Order #2 has #127700026 item - price is {0:###,###.00}$.", orderItem.UnitPrice * orderItem.Quantity);
+                Console.WriteLine("Order #2 has \"Crank\" item - price is {0:###,###.00}$.", orderItem.UnitPrice * orderItem.Quantity);
             }
         }
 
         private static void Display(string title, Order order)
         {
             Console.WriteLine(title);
-            foreach (OrderItem item in order.OrderItems)
+            foreach (var item in order.OrderItems)
             {
                 Console.WriteLine(item);
             }
+
             Console.WriteLine();
         }
     }

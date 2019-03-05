@@ -5,9 +5,9 @@
 
     public class Order
     {
-        private readonly KeyedCollection<int, OrderItem> _orderItems = new OrderItemCollection();
+        private readonly OrderItemCollection _orderItems = new OrderItemCollection();
 
-        public KeyedCollection<int, OrderItem> OrderItems
+        public OrderItemCollection OrderItems
         {
             get => this._orderItems;
         }

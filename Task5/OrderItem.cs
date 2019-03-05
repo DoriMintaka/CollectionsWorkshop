@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Task5
+﻿namespace Task5
 {
+    using System;
+
     public class OrderItem
     {
         public readonly int PartNumber;
@@ -21,8 +21,9 @@ namespace Task5
         {
             get
             {
-                return _quantity;
+                return this._quantity;
             }
+
             set
             {
                 if (value < 0)
@@ -30,14 +31,14 @@ namespace Task5
                     throw new ArgumentException("Quantity cannot be negative.");
                 }
 
-                _quantity = value;
+                this._quantity = value;
             }
         }
 
         public override string ToString()
         {
             return String.Format("{0,9} {1,6} {2,-12} at {3,8:#,###.00} = {4,10:###,###.00}",
-                PartNumber, _quantity, Description, UnitPrice, UnitPrice * _quantity);
+                this.PartNumber, this._quantity, this.Description, this.UnitPrice, this.UnitPrice * this._quantity);
         }
     }
 }
